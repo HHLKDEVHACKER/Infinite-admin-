@@ -2215,55 +2215,54 @@ Game:Toggle("فلينق الكل",function(x)
 	end
 end)
 
-Game:Button("كشف امكان الاعبين",function()
--- اقوى كشف با العالم
-local FillColor = Color3.new(1, 1, 1) 
-local DepthMode = "AlwaysOnTop"
-local FillTransparency = 0
-local OutlineColor = Color3.new(1, 1, 1) 
-local OutlineTransparency = 0
+Game:Button("كشف امكان الاعبين", function()
+    -- اقوى كشف با العالم
+    local FillColor = Color3.new(1, 1, 1)
+    local DepthMode = "AlwaysOnTop"
+    local FillTransparency = 0
+    local OutlineColor = Color3.new(1, 1, 1)
+    local OutlineTransparency = 0
 
-local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
+    local CoreGui = game:GetService("CoreGui")
+    local Players = game:GetService("Players")
 
-local Storage = Instance.new("Folder")
-Storage.Parent = CoreGui
-Storage.Name = "Highlight_Storage"
+    local Storage = Instance.new("Folder")
+    Storage.Parent = CoreGui
+    Storage.Name = "Highlight_Storage"
 
-local function Highlight(plr)
-    local Highlight = Instance.new("BillboardGui")
-    Highlight.Name = plr.Name
-    Highlight.Adornee = plr.Character:WaitForChild("Head")
-    Highlight.Size = UDim2.new(1, 0, 1, 0)
-    Highlight.StudsOffset = Vector3.new(0, 2, 0)
-    Highlight.MaxDistance = 100
-    Highlight.AlwaysOnTop = true
+    local function Highlight(plr)
+        local Highlight = Instance.new("BillboardGui")
+        Highlight.Name = plr.Name
+        Highlight.Adornee = plr.Character:WaitForChild("Head")
+        Highlight.Size = UDim2.new(1, 0, 1, 0)
+        Highlight.StudsOffset = Vector3.new(0, 2, 0)
+        Highlight.MaxDistance = 100
+        Highlight.AlwaysOnTop = true
 
-    local TextLabel = Instance.new("TextLabel")
-    TextLabel.Text = "Name: " .. plr.Name
-    TextLabel.Size = UDim2.new(1, 0, 1, 0)
-    TextLabel.TextColor3 = FillColor
-    TextLabel.TextStrokeTransparency = OutlineTransparency
-    TextLabel.TextStrokeColor3 = OutlineColor
-    TextLabel.TextTransparency = FillTransparency
-    TextLabel.Parent = Highlight
+        local TextLabel = Instance.new("TextLabel")
+        TextLabel.Text = "Name: " .. plr.Name
+        TextLabel.Size = UDim2.new(1, 0, 1, 0)
+        TextLabel.TextColor3 = FillColor
+        TextLabel.TextStrokeTransparency = OutlineTransparency
+        TextLabel.TextStrokeColor3 = OutlineColor
+        TextLabel.TextTransparency = FillTransparency
+        TextLabel.Parent = Highlight
 
-    Highlight.Parent = Storage
-end
-
-Players.PlayerAdded:Connect(Highlight)
-for i, plr in pairs(Players:GetPlayers()) do
-    Highlight(plr)
-end
-
-Players.PlayerRemoving:Connect(function(plr)
-    local plrname = plr.Name
-    if Storage:FindFirstChild(plrname) then
-        Storage[plrname]:Destroy()
+        Highlight.Parent = Storage
     end
-end)
-end)
 
+    Players.PlayerAdded:Connect(Highlight)
+    for i, plr in pairs(Players:GetPlayers()) do
+        Highlight(plr)
+    end
+
+    Players.PlayerRemoving:Connect(function(plr)
+        local plrname = plr.Name
+        if Storage:FindFirstChild(plrname) then
+            Storage[plrname]:Destroy()
+        end
+    end)
+end)
 
 Game:TabFix()
 Game:TabFix()
